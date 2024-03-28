@@ -24,7 +24,7 @@ def startDownload():
             filename = ytObject.title + ".mp3"
 
         if video:
-            title.configure(text=ytObject.title, text_color="white")
+            title_label.configure(text=ytObject.title, text_color="white")
             finishLabel.configure(text="")
             video.download(filename="temp." + file_extension)
             if download_choice.get() == "MP3":
@@ -69,15 +69,30 @@ def convert_to_mp3(input_file, output_file):
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("blue")
 
+
+
 # frame de la aplicacion
 app = customtkinter.CTk()
 app.geometry("720x480")
 app.title("Descargador de Youtube")
 
+link_frame = customtkinter.CTkFrame(app)
+link_frame.pack(padx=10, pady=10)
+
 
 # añado la interfaz 
-title = customtkinter.CTkLabel(app, text="Inserte link de YouTube")
-title.pack(padx=10, pady=10) # tamaño
+title_label = customtkinter.CTkLabel(link_frame, text="Inserte link de YouTube")
+title_label.pack(side="left") # tamaño
+
+
+#barra de progresso
+pPercentaje = customtkinter.CTkLabel(app, text="0%")
+pPercentaje.pack()
+
+progressBar = customtkinter.CTkProgressBar(app, width=400)
+progressBar.set(0)
+progressBar.pack(padx=10, pady=10)
+
 
 # input para el link 
 url_var = tkinter.StringVar() # hago una variable url var para tener la ultima info de que es lo que hay en el link y usarlo en cualquier lado
@@ -89,19 +104,12 @@ finishLabel = customtkinter.CTkLabel(app, text="")
 finishLabel.pack()
 
 
-#barra de progresso
-pPercentaje = customtkinter.CTkLabel(app, text="0%")
-pPercentaje.pack()
-
-progressBar = customtkinter.CTkProgressBar(app, width=400)
-progressBar.set(0)
-progressBar.pack(padx=10, pady=10)
-
 # botton de descarga
 download_choice = tkinter.StringVar(app)
 download_choice.set("Video MP4")
 
-download_menu = tkinter.OptionMenu(app, download_choice, "Video MP4" , "Audio MP3" )
+download_menu = tkinter.OptionMenu(app, download_choice, "Video MP4" , "Audio MP3")
+download_menu.config(bg="gray", fg="white")
 download_menu.pack(padx=10, pady=10)
 
 download = customtkinter.CTkButton(app, text="Descargar", command=startDownload) 
