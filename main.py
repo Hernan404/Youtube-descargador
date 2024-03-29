@@ -99,19 +99,22 @@ url_var = tkinter.StringVar() # hago una variable url var para tener la ultima i
 link = customtkinter.CTkEntry(app, width=350, height=40, textvariable=url_var)
 link.pack()
 
-# termino la descarga 
-finishLabel = customtkinter.CTkLabel(app, text="")
-finishLabel.pack()
 
-
-# botton de descarga
+# menu desplegable
 download_choice = tkinter.StringVar(app)
 download_choice.set("Video MP4")
 
 download_menu = tkinter.OptionMenu(app, download_choice, "Video MP4" , "Audio MP3")
 download_menu.config(bg="gray", fg="white")
-download_menu.pack(padx=10, pady=10)
+download_menu.place(relx=0.76, rely=0.26, anchor=tkinter.W)
+#relx= costado; rely= altura
 
+# termino la descarga 
+finishLabel = customtkinter.CTkLabel(app, text="")
+finishLabel.pack()
+
+
+# botton de descarga 
 download = customtkinter.CTkButton(app, text="Descargar", command=startDownload) 
 download.pack(padx=10, pady=10)
 
